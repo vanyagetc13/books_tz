@@ -1,0 +1,19 @@
+.card {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: antiquewhite;
+    width: 300px;
+}
+
+.title {
+    font-size: 1.1em;
+    font-weight: 700;
+}
+
+.image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
