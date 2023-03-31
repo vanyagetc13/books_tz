@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { runInAction } from "mobx";
-import { IBook, ISearchedBooks } from "../types/Book";
+import { ISearchedBooks } from "../types/Book";
 import instanse from "./../axios";
 
 class Books {

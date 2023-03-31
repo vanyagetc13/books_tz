@@ -1,1 +1,1 @@
-#TZ for future-group.ru
+#TZ for future-group.rug
