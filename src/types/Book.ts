@@ -95,9 +95,13 @@ export interface IBook {
 	accessInfo: accessInfo;
 }
 
-
 export interface ISearchedBooks {
 	kind: string;
 	totalItems: number;
 	items: IBook[];
+}
+
+export interface lastSearch {
+	query: string;
+	sort: string;
 }

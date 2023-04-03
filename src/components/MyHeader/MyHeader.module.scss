@@ -3,8 +3,14 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-    padding: 10px;
-    gap: 3px;
+	padding: 10px;
+	gap: 3px;
+	border-bottom: 1px solid black;
+
+	background-image: url("../../../public/books.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position-y: center;
 
 	form {
 		display: flex;

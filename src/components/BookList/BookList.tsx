@@ -8,10 +8,9 @@ const BookList = observer(() => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.list}>
-				{books.books &&
-					books.books.items.map((book) => (
-						<BookCard key={book.id} book={book} />
-					))}
+				{books.books?.items.map((book) => (
+					<BookCard key={book.id + new Date()} book={book} />
+				))}
 			</div>
 		</div>
 	);

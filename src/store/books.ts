@@ -1,20 +1,20 @@
 import { makeAutoObservable } from "mobx";
 import { runInAction } from "mobx";
-import { ISearchedBooks } from "../types/Book";
+import { ISearchedBooks, lastSearch } from "../types/Book";
 import instanse from "./../axios";
+import { IBook } from "./../types/Book";
+
+const MAX_RESULTS: number = 30;
 
 class Books {
-	books: ISearchedBooks = {
+	books: ISearchedBooks | null = {
 		kind: "",
 		totalItems: 0,
 		items: [],
 	};
-	MAX_RESULTS: number = 20;
+	bookById: IBook | null = null;
 	status: "pending" | "fulfilled" = "fulfilled";
-	lastSearch: {
-		query: string;
-		sort: string;
-	} = {
+	lastSearch: lastSearch = {
 		query: "",
 		sort: "relevance",
 	};
@@ -23,15 +23,20 @@ class Books {
 		makeAutoObservable(this);
 	}
 
-	fetchBooks(query: string = "js", sort: string = "relevance", category: string = "All") {
+	fetchBooks(
+		query: string = "js",
+		sort: string = "relevance",
+		category: string = "All"
+	) {
 		this.status = "pending";
-		if(category !== "All") query+=` inauthor:${category}`;
+		this.books = null;
+		if (category !== "All") query += ` subject:${category}`;
 		instanse
 			.get("", {
 				params: {
 					q: query,
 					orderBy: sort,
-					maxResults: this.MAX_RESULTS,
+					maxResults: MAX_RESULTS,
 				},
 			})
 			.then((response) => response.data)
@@ -45,24 +50,40 @@ class Books {
 			.catch((err) => console.error(err));
 	}
 	loadMore() {
+		this.status = "pending";
 		const { query, sort } = this.lastSearch;
 		instanse
 			.get("", {
 				params: {
 					q: query,
 					orderBy: sort,
-					startIndex: this.books.items.length,
-					maxResults: this.MAX_RESULTS,
+					startIndex: this.books?.items.length,
+					maxResults: MAX_RESULTS,
 				},
 			})
 			.then((response) => response.data)
 			.then((data) => {
 				runInAction(() => {
-					if (this.books.items) {
+					if (this.books?.items) {
 						this.books.items = this.books.items.concat(data.items);
+						this.status = "fulfilled";
 					}
 				});
-			});
+			})
+			.catch((err) => console.error(err));
+	}
+	fetchBookById(id: string) {
+		this.bookById = null;
+		instanse
+			.get(id)
+			.then((response) => response.data)
+			.then((data) => {
+				runInAction(() => {
+					this.bookById = data;
+					console.log(data);
+				});
+			})
+			.catch((err) => console.error(err));
 	}
 }
 const books = new Books();

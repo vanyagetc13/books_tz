@@ -1,13 +1,20 @@
 import React from "react";
 import { IBook } from "./../../types/Book";
 import styles from "./BookCard.module.scss";
+import { useNavigate } from "react-router-dom";
 
 interface BookCardProps {
 	book: IBook;
 }
 const BookCard = ({ book }: BookCardProps) => {
+	const navigate = useNavigate();
 	return (
-		<div className={styles.card}>
+		<div
+			className={styles.card}
+			onClick={() => {
+				navigate(`/books/${book.id}`);
+			}}
+		>
 			<div className={styles.image}>
 				<img
 					height={"150px"}
@@ -18,8 +25,11 @@ const BookCard = ({ book }: BookCardProps) => {
 					alt='book thumb'
 				/>
 			</div>
+			<div className={styles.categories}>
+				{book.volumeInfo.categories?.[0]}
+			</div>
 			<div className={styles.title}>{book.volumeInfo.title}</div>
-			<div></div>
+			<div>{book.volumeInfo.authors?.join(", ")}</div>
 		</div>
 	);
 };

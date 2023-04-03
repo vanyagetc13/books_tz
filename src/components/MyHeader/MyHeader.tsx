@@ -2,14 +2,18 @@ import { Button, Input, NativeSelect } from "@mui/material";
 import React, { useState } from "react";
 import books from "../../store/books";
 import styles from "./MyHeader.module.scss";
+import { useNavigate } from "react-router-dom";
 
 const MyHeader = () => {
 	const [sort, setSort] = useState<string>("relevance");
 	const [query, setQuery] = useState<string>("");
-	const [category, setCategory] = useState<string>("all");
+	const [category, setCategory] = useState<string>("All");
+
+	const navigate = useNavigate();
 	const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		books.fetchBooks(query, sort, category);
+		navigate("/");
 	};
 	return (
 		<header className={styles.header}>

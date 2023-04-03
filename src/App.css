@@ -1,4 +1,12 @@
 .App {
 	width: 100vw;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+}
+
+.body {
+	width: 100vw;
 	min-height: 100vh;
+	position: relative;
 }
