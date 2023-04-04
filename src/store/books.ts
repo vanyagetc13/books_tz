@@ -3,6 +3,7 @@ import { runInAction } from "mobx";
 import { ISearchedBooks, lastSearch } from "../types/Book";
 import instanse from "./../axios";
 import { IBook } from "./../types/Book";
+import errors from "./errors";
 
 const MAX_RESULTS: number = 30;
 
@@ -47,7 +48,9 @@ class Books {
 					this.lastSearch = { query: query, sort: sort };
 				});
 			})
-			.catch((err) => console.error(err));
+			.catch((err) =>
+				errors.addError({ code: 0, text: err, id: Number(new Date()) })
+			);
 	}
 	loadMore() {
 		this.status = "pending";
@@ -70,7 +73,9 @@ class Books {
 					}
 				});
 			})
-			.catch((err) => console.error(err));
+			.catch((err) =>
+				errors.addError({ code: 0, text: err, id: Number(new Date()) })
+			);
 	}
 	fetchBookById(id: string) {
 		this.bookById = null;
@@ -80,10 +85,11 @@ class Books {
 			.then((data) => {
 				runInAction(() => {
 					this.bookById = data;
-					console.log(data);
 				});
 			})
-			.catch((err) => console.error(err));
+			.catch((err) =>
+				errors.addError({ code: 0, text: err, id: Number(new Date()) })
+			);
 	}
 }
 const books = new Books();

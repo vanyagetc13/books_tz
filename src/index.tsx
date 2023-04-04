@@ -9,7 +9,8 @@ import SearchPage from "./pages/SearchPage/SearchPage";
 const root = ReactDOM.createRoot(
 	document.getElementById("root") as HTMLElement
 );
-const router = createBrowserRouter([
+
+export const router = createBrowserRouter([
 	{
 		path: "/",
 		element: <App />,
@@ -25,4 +26,5 @@ const router = createBrowserRouter([
 		],
 	},
 ]);
+
 root.render(<RouterProvider router={router} />);

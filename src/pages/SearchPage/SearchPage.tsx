@@ -8,20 +8,18 @@ import LoadMore from "../../components/LoadMore/LoadMore";
 
 const SearchPage = observer(() => {
 	return (
-		<div className='App'>
-			<div className={styles.wrapper}>
-				<div className={styles.results}>
-					Results found:{" "}
-					{books.status === "fulfilled" ? (
-						books.books?.totalItems +
-							`(${books.books?.items.length})` || "0"
-					) : (
-						<CircularProgress size={20} />
-					)}
-				</div>
-				<BookList />
-				<LoadMore />
+		<div className={styles.wrapper}>
+			<div className={styles.results}>
+				Results found:{" "}
+				{books.status === "fulfilled" ? (
+					books.books?.totalItems +
+						`(${books.books?.items.length})` || "0"
+				) : (
+					<CircularProgress size={20} />
+				)}
 			</div>
+			<BookList />
+			<LoadMore />
 		</div>
 	);
 });

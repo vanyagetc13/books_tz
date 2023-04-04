@@ -3,7 +3,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 interface Error {
 	code: number;
 	text: string;
-	id: Date;
+	id: number;
 }
 
 class Errors {
@@ -21,7 +21,7 @@ class Errors {
 			});
 		}, 3000);
 	}
-	deleteError(id: Date) {
+	deleteError(id: number) {
 		this.errors = this.errors.filter((err) => err.id !== id);
 	}
 }

@@ -1,20 +1,30 @@
 import React, { useEffect, useMemo } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import books from "../../store/books";
 import CircularProgress from "@mui/material/CircularProgress";
 import { observer } from "mobx-react-lite";
 import styles from "./BookPage.module.scss";
 import { IBook } from "./../../types/Book";
+import errors from "../../store/errors";
 
 const BookPage = observer(() => {
 	const { id } = useParams();
+	const navigate = useNavigate()
 	useEffect(() => {
 		if (id) books.fetchBookById(id);
+		else {
+			errors.addError({
+				code: 500,
+				text: "Ошибка сервера",
+				id: Number(new Date()),
+			});
+			navigate("/")
+		}
 	}, []);
-	if (!books.bookById)
+	if (!books.bookById || !id)
 		return (
 			<div className={styles.progress_box}>
-				<CircularProgress />
+				<CircularProgress role={"progress-bar"} />
 			</div>
 		);
 	const book: IBook = books.bookById;

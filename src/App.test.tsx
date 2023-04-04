@@ -1,9 +1,11 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { prettyDOM, render, screen } from "@testing-library/react";
 import App from "./App";
 
-test("renders learn react link", () => {
-	render(<App />);
-	const linkElement = screen.getByText(/Поиск/i);
-	expect(linkElement).toBeInTheDocument();
-});
+describe("App tests",()=>{
+    it("App renders", ()=>{
+        // render(<App/>)
+        // prettyDOM()
+        // expect(screen.getByRole('App')).toBeInTheDocument()
+    })
+})

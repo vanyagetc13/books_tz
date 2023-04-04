@@ -3,11 +3,13 @@ import React, { useState } from "react";
 import books from "../../store/books";
 import styles from "./MyHeader.module.scss";
 import { useNavigate } from "react-router-dom";
+import errors from "../../store/errors";
 
 const MyHeader = () => {
 	const [sort, setSort] = useState<string>("relevance");
 	const [query, setQuery] = useState<string>("");
 	const [category, setCategory] = useState<string>("All");
+	const [genErrButtonMode, setGenErrorButtonMode] = useState<boolean>(false);
 
 	const navigate = useNavigate();
 	const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
@@ -17,6 +19,28 @@ const MyHeader = () => {
 	};
 	return (
 		<header className={styles.header}>
+			<button
+				onClick={() => {
+					errors.addError({
+						id: Number(new Date()),
+						text: "Error Catcher test",
+						code: 500,
+					});
+					setGenErrorButtonMode(true);
+					setTimeout(() => {
+						setGenErrorButtonMode(false);
+					}, 500);
+				}}
+				disabled={genErrButtonMode}
+				style={{
+					padding: "0 5px",
+					position: "absolute",
+					top: "5px",
+					left: "5px",
+				}}
+			>
+				generate error
+			</button>
 			<form onSubmit={submitHandler}>
 				<Input
 					type='text'
