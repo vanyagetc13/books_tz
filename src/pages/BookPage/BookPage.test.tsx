@@ -24,6 +24,15 @@ describe("BookPage tests", () => {
 				"JavaScript и Node.js для Web-разработчиков"
 			)
 		).toBeInTheDocument();
-		expect(await screen.findAllByText(/javascript/i)).toBeTruthy()
+		expect(await screen.findAllByText(/javascript/i)).toBeTruthy();
 	});
+
+	// не умею менять мок из теста
+
+	// it("throws error if no id", async () => {
+	// 	render(<BookPage />);
+	// 	expect(
+	// 		await screen.findAllByText(/ошибка/i, undefined, { timeout: 3000 })
+	// 	).toBeTruthy();
+	// });
 });

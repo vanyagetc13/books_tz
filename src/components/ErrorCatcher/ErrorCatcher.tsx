@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 
 const ErrorCatcher = observer(() => {
 	return (
-		<div className={styles.wrapper}>
+		<div className={styles.wrapper} data-testid="error_catcher">
 			{errors.errors.map((error) => (
 				<div key={error.id.toString()} className={styles.error}>
 					<h5>Code: {error.code}</h5>

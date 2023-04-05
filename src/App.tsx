@@ -7,7 +7,7 @@ import ErrorCatcher from "./components/ErrorCatcher/ErrorCatcher";
 
 const App = observer(() => {
 	return (
-		<div className='body'>
+		<div className='body' data-testid="app">
 			<MyHeader />
 			<div className='App'>
 				<Outlet />
